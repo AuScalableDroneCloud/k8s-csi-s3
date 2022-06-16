@@ -17,7 +17,8 @@ storageClass:
   # Use a single bucket for all dynamically provisioned persistent volumes
   singleBucket: ""
   # GeeseFS mount options
-  mountOptions: "--memory-limit 1000 --dir-mode 0777 --file-mode 0666"
+  # Optimise for speed with more network bandwidth (limits file size to 250GB)
+  mountOptions: "--memory-limit 4000 --dir-mode 0777 --file-mode 0666 --list-type 2 --no-checksum --max-flushers 32 --max-parallel-parts 32 --part-sizes 25"
   # Volume reclaim policy
   reclaimPolicy: Delete
   # Annotations for the storage class
@@ -28,7 +29,8 @@ storageClass:
 
 secret:
   # Specifies whether the secret should be created
-  create: true
+  #create: true
+  create: false
   # Name of the secret
   name: csi-s3-secret
   # S3 Access Key
@@ -36,4 +38,6 @@ secret:
   # S3 Secret Key
   secretKey: ""
   # Endpoint
-  endpoint: https://storage.yandexcloud.net
+  endpoint: https://swift.rc.nectar.org.au/
+  #accessKey: $AWS_ACCESS_KEY_ID
+  #secretKey: $AWS_SECRET_ACCESS_KEY
