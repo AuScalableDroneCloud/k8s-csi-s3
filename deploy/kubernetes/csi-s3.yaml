@@ -118,3 +118,9 @@ spec:
         - name: fuse-device
           hostPath:
             path: /dev/fuse
+
+      #Allow running on compute nodes
+      tolerations:
+      - key: "compute"
+        operator: "Exists"
+        effect: "NoSchedule"
