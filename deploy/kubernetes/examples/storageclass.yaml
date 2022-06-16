@@ -7,7 +7,10 @@ provisioner: ru.yandex.s3.csi
 parameters:
   mounter: geesefs
   # you can set mount options here, for example limit memory cache size (recommended)
-  options: "--memory-limit 1000 --dir-mode 0777 --file-mode 0666"
+  #options: "--memory-limit 1000 --dir-mode 0777 --file-mode 0666 --list-type 2"
+  # Optimise for speed with more network bandwidth (limits file size to 250GB)
+  # (these are only the defaults, each mount can override)
+  options: "--memory-limit 4000 --dir-mode 0777 --file-mode 0666 --list-type 2 --no-checksum --max-flushers 32 --max-parallel-parts 32 --part-sizes 25"
   # to use an existing bucket, specify it here:
   #bucket: some-existing-bucket
   csi.storage.k8s.io/provisioner-secret-name: csi-s3-secret
